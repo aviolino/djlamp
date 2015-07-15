@@ -28,13 +28,30 @@ function _request(options, callback) {
 	req.end();
 };
 
+function parse_song(raw) {
+	var params = {
+		title: raw.name,
+		artist: raw.artist.name,
+		platform: "lastfm",
+		id: raw.mbid
+	};
+	return song(params);
+};
+
 module.exports = {
 	similar: function(options, callback) {
+		var api_callback = function(res) {
+			var raw_songs = res.similartracks.track;
+			var parsed = raw_songs.map(function(raw_song) {
+				return parse_song(raw_song);
+			});
+			callback(parsed);
+		};
 		_request({
 			method: "track.getSimilar",
 			artist: options.song.artist,
 			track: options.song.title,
 			limit: 10
-		}, callback);
+		}, api_callback);
 	}
 };
