@@ -5,7 +5,7 @@ var api = require("./api");
 var app = express();
 app.use(express.static('assets'));
 
-var port = process.argv[2];
+var port = process.env.PORT || 8000;
 
 function index(req, res) {
 	res.sendFile(__dirname + "/assets/pages/app.html");
