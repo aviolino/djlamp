@@ -31,7 +31,11 @@ function recommend(req, res) {
 		lastfm.similar({
 			song: song	
 		}, function(songs) {
-			_respond(res, songs);
+			var content = {
+				results: songs,
+				original: song
+			};
+			_respond(res, content);
 		});
 	});
 };
