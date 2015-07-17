@@ -41,10 +41,13 @@ function parse_song(raw) {
 module.exports = {
 	similar: function(options, callback) {
 		var api_callback = function(res) {
-			var raw_songs = res.similartracks.track;
-			var parsed = raw_songs.map(function(raw_song) {
-				return parse_song(raw_song);
-			});
+			var parsed = [];
+			if(res && res.similartracks) {
+				var raw_songs = res.similartracks.track;
+				parsed = raw_songs.map(function(raw_song) {
+					return parse_song(raw_song);
+				});	
+			}
 			callback(parsed);
 		};
 		_request({
