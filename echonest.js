@@ -42,7 +42,10 @@ function parse_song(raw) {
 module.exports = {
 	lookup: function(options, callback) {
 		var api_callback = function(res) {
-			var result = parse_song(res.response.songs[0]);
+			var result; 
+			if(res && res.response && res.response.songs) {
+				var result = parse_song(res.response.songs[0]);	
+			}
 			callback(result);
 		};
 		_request({

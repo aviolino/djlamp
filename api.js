@@ -28,15 +28,20 @@ function recommend(req, res) {
 	echonest.lookup({
 		id: id
 	}, function(song) {
-		lastfm.similar({
-			song: song	
-		}, function(songs) {
-			var content = {
-				results: songs,
-				original: song
-			};
-			_respond(res, content);
-		});
+		if(song) {
+			lastfm.similar({
+				song: song	
+			}, function(songs) {
+				var content = {
+					results: songs,
+					original: song
+				};
+				_respond(res, content);
+			});	
+		} else {
+			_respond(res, {});
+		}
+		
 	});
 };
 
