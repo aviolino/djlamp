@@ -54,5 +54,26 @@ module.exports = {
 				track_id: options.id
 			}
 		}, api_callback);
+	},
+	
+	similar: function(options, callback) {
+		var api_callback = function(res) {
+			var parsed = [];
+			if(res && res.response && res.response.songs) {
+				var raw_songs = res.response.songs;
+				parsed = raw_songs.map(function(raw_song) {
+					return parse_song(raw_song);
+				});	
+			}
+			callback(parsed);
+		};
+		_request({
+			path: "/playlist/static",
+			params: {
+				track_id: options.id,
+				results: 10,
+				type: "song-radio"
+			}
+		}, api_callback);
 	}
 };

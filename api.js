@@ -32,11 +32,23 @@ function recommend(req, res) {
 			lastfm.similar({
 				song: song	
 			}, function(songs) {
-				var content = {
-					results: songs,
-					original: song
-				};
-				_respond(res, content);
+				if(songs && songs.length) {
+					var content = {
+						results: songs,
+						original: song
+					};
+					_respond(res, content);	
+				} else {
+					echonest.similar({
+						id: id
+					}, function(songs) {
+						var content = {
+							results: songs,
+							original: song
+						};
+						_respond(res, content);
+					});
+				}
 			});	
 		} else {
 			_respond(res, {});
