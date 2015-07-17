@@ -1,4 +1,4 @@
-var https = require("https");
+var http = require("http");
 var qs = require("querystring");
 var settings = require("./settings");
 var song = require("./song");
@@ -15,9 +15,7 @@ function _request(options, callback) {
 		method: "GET"
 	};
 	var data = '';
-	console.log(api_options.hostname);
-	console.log(api_options.path);
-	var req = https.request(api_options, function(res) {
+	var req = http.request(api_options, function(res) {
 		res.setEncoding("utf8");
 		res.on("data", function(chunk) {
 			data += chunk;
