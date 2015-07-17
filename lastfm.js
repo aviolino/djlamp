@@ -15,6 +15,8 @@ function _request(options, callback) {
 		method: "GET"
 	};
 	var data = '';
+	console.log(api_options.hostname);
+	console.log(api_options.path);
 	var req = https.request(api_options, function(res) {
 		res.setEncoding("utf8");
 		res.on("data", function(chunk) {
