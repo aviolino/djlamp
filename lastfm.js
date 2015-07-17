@@ -44,6 +44,9 @@ module.exports = {
 			var parsed = [];
 			if(res && res.similartracks) {
 				var raw_songs = res.similartracks.track;
+				if( typeof raw_songs === 'string' ) {
+					raw_songs = [];
+				}
 				parsed = raw_songs.map(function(raw_song) {
 					return parse_song(raw_song);
 				});	

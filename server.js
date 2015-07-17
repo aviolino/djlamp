@@ -18,4 +18,8 @@ app.get("/api/search", api.search);
 app.get("/api/song", api.add_song);
 app.get("/", index);
 
+process.on('uncaughtException', function (err) {
+    console.log(err);
+});
+
 app.listen(port);
